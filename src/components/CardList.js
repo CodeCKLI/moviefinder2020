@@ -1,7 +1,8 @@
 import React from 'react';
-import {Card, Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom';
+import {Card, Button} from 'react-bootstrap';
 
-const CardList = ( { title, vote, poster } ) => {
+const CardList = ( {movies, title, poster,id } ) => {
 
   return (
     <div>
@@ -9,10 +10,14 @@ const CardList = ( { title, vote, poster } ) => {
         <Card.Body>
           <Card.Img variant="top" src={poster} />
           <Card.Title className="mt-3">{title}</Card.Title>
-          <Card.Text>
-            {`IMDb score: ${vote}`}
-          </Card.Text>
-          <Button variant="primary">Learn More</Button>
+          <Button variant="info">
+            <Link 
+            style={{ textDecoration: 'none', color:'whitesmoke' }} 
+            to={ {
+              pathname: `/info/movie/${id}`, 
+              state: {id} 
+            } } > Learn More</Link>
+          </Button>
         </Card.Body>
       </Card>
     </div>

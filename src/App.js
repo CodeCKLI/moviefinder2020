@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import { Container, Row } from 'react-bootstrap'
 import CardList from './components/CardList';
 import NavBar from './components/NavBar';
+import Info from './components/Info';
+import RenderList from './components/RenderList';
+import Login from './components/Login';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 const App = () => {
@@ -39,30 +42,22 @@ const App = () => {
 
   if (movies.length === 0) {
     return (
-      <Container>
-        <Row>
-          <h1 style={{textAlign:'center', marginTop:'5rem' , width: '18rem' , height : '36rem'}}>Sorry, no result</h1>
-          <NavBar updateSearch={updateSearch} getSearch={getSearch} />   
-        </Row>
-      </Container>  
+      <div>
+        <NavBar updateSearch={updateSearch} getSearch={getSearch}></NavBar>
+        <h1>Loading... or try again</h1>
+      </div>
       )
   }
 
   return (
-    <div className="App">
-    <NavBar updateSearch={updateSearch} getSearch={getSearch} />
-      <Container>
-        <Row>
-          {
-            movies.map( movie => {
-                if (movie.poster_path != null) {
-                return <CardList title={movie.title} vote={movie.vote_average} poster={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} />
-              }
-            } )
-          } 
-        </Row> 
-      </Container>
-    </div>
+    <Router>
+      <div className="App">
+        <NavBar updateSearch={updateSearch} getSearch={getSearch} />
+        <Route path="/" exact render={ (props) => <RenderList {...props} CardList={CardList} movies={movies} /> } />
+        <Route path="/info" component={Info} />
+        <Route path="/login" component={Login} />
+      </div>
+    </Router>
   );
 }
 
