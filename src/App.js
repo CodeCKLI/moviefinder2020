@@ -6,6 +6,7 @@ import Info from './components/Info';
 import RenderList from './components/RenderList';
 import Login from './components/Login';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Spinner} from 'react-bootstrap'
 
 
 const App = () => {
@@ -14,9 +15,11 @@ const App = () => {
   const [movies, setMovies] = useState([]); 
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('date');
+  const [genre, setGenre] = useState([]);
   
   useEffect( () => {
     getMovie()
+    getGenre()
   },[query] )
 
   const getMovie = async () => {
@@ -25,6 +28,14 @@ const App = () => {
   );
     const data = await response.json();
     setMovies(data.results)
+  }
+
+  const getGenre = async () => {
+    const response = await fetch (
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
+  );
+    const data = await response.json();
+    setGenre(data.genres)
   }
 
   const updateSearch = e => {
@@ -44,16 +55,17 @@ const App = () => {
     return (
       <div>
         <NavBar updateSearch={updateSearch} getSearch={getSearch}></NavBar>
-        <h1>Loading... or try again</h1>
+        <Spinner animation="border" role="status" style={ {marginTop:'80px'} }>
+          <span className="sr-only">Loading...</span>
+        </Spinner>
       </div>
       )
   }
-
   return (
     <Router>
       <div className="App">
         <NavBar updateSearch={updateSearch} getSearch={getSearch} />
-        <Route path="/" exact render={ (props) => <RenderList {...props} CardList={CardList} movies={movies} /> } />
+        <Route path="/" exact render={ (props) => <RenderList {...props} genre={genre} CardList={CardList} movies={movies} /> } />
         <Route path="/info" component={Info} />
         <Route path="/login" component={Login} />
       </div>

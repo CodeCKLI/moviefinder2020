@@ -6,6 +6,7 @@
   text-align: center;
 }
 
-.App {
+body{
   height: 100vh;
+  background:#212121;
 }
