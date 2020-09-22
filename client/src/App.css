@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+}
+
+body{
+  height: 100vh;
+  background:#212121;
+}
