@@ -12,17 +12,7 @@ const NavBar = ( {updateSearch, getSearch} ) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <NavDropdown title="Profile" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="/">Favourites</NavDropdown.Item>
-          <NavDropdown.Item href="/">Friend List</NavDropdown.Item>
-          <NavDropdown.Item href="/">Pairing Game</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="/">Settings</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link className="m-auto" href="/login">Login</Nav.Link>
-          <Nav.Link className="m-auto" href="/login">Signin</Nav.Link>
-        </Nav>
+        <Nav className="ml-auto"></Nav>
         
         <Form onSubmit={getSearch} inline>
         <FormControl  onChange={updateSearch} type="text" placeholder="Movie Name" className="mr-2 mb-1" size="sm"/>
